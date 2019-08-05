@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ReactDOM  from 'react-dom';
 import { SeasonDisplay } from './SeasonDisplay';
+import LoadingSpinner from './Spinner';
+import './SeasonDisplay.css';
 
 class App extends Component {
   state = {lat: null, errorMessage: ''};
@@ -11,8 +13,8 @@ class App extends Component {
       err => this.setState({ errorMessage: err.message })
     )
   };
-
-  render() {
+  
+  seasonContent () {
     if(this.state.lat && !this.state.errorMessage){
       return (
         <div>
@@ -30,7 +32,14 @@ class App extends Component {
     }
 
     return (
-      <div> I am Loading!!! </div>
+      <LoadingSpinner textMessage={'Please accept location request'} />
+    );
+  }
+  render() {
+    return(
+      <div className={`border-styled-color`}>
+        {this.seasonContent()}
+      </div>
     );
   };
 };
